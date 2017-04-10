@@ -7,6 +7,9 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.classycode.nfcsockets.util.DummyHostnameVerifier;
+import com.classycode.nfcsockets.util.TrustAllCertificates;
+
 import org.apache.commons.io.IOUtils;
 
 import java.io.ByteArrayInputStream;
@@ -14,14 +17,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
 import javax.net.SocketFactory;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
@@ -41,53 +40,30 @@ public class OkHttpWebViewClient extends WebViewClient {
 
     private static final String TAG = OkHttpWebViewClient.class.getSimpleName();
 
-    private static class TrustAllCertificates implements X509TrustManager {
-
-        @Override
-        public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-        }
-
-        @Override
-        public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-            Log.w(TAG, "Blindly trusting server (YOUR PINNING CODE HERE)");
-        }
-
-        @Override
-        public X509Certificate[] getAcceptedIssuers() {
-            return new X509Certificate[0];
-        }
-    }
-
-    private static class DummyHostnameVerifier implements HostnameVerifier {
-
-        @Override
-        public boolean verify(String hostname, SSLSession session) {
-            Log.w(TAG, "Hostname verifier asked to verify " + hostname + " against his beliefs");
-            return true;
-        }
-    }
+    private static final boolean TRUST_ALL_CERTIFICATES = false;
 
     private final OkHttpClient client;
 
     public OkHttpWebViewClient(SocketFactory socketFactory) {
         try {
             final ConnectionPool noPool = new ConnectionPool(0, 1, TimeUnit.SECONDS);
-            final X509TrustManager trustManager = new TrustAllCertificates();
-            final SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{trustManager}, null);
-            client = new OkHttpClient.Builder().socketFactory(socketFactory)
+            OkHttpClient.Builder builder = new OkHttpClient.Builder().socketFactory(socketFactory)
                     // override DNS
                     .dns(new OkDns())
                     // disable connection pooling
                     .connectionPool(noPool)
-                    // disable certificate and hostname verification
-                    .sslSocketFactory(sslContext.getSocketFactory(), trustManager)
-                    .hostnameVerifier(new DummyHostnameVerifier())
                     // no timeouts, we don't support them yet
                     .readTimeout(0, TimeUnit.MILLISECONDS)
                     .writeTimeout(0, TimeUnit.MILLISECONDS)
-                    .connectTimeout(0, TimeUnit.MILLISECONDS)
-                    .build();
+                    .connectTimeout(0, TimeUnit.MILLISECONDS);
+            if (TRUST_ALL_CERTIFICATES) { // for development purposes
+                final X509TrustManager trustManager = new TrustAllCertificates();
+                final SSLContext sslContext = SSLContext.getInstance("TLS");
+                sslContext.init(null, new TrustManager[]{trustManager}, null);
+                builder.sslSocketFactory(sslContext.getSocketFactory(), trustManager);
+                builder.hostnameVerifier(new DummyHostnameVerifier());
+            }
+            client = builder.build();
         } catch (KeyManagementException | NoSuchAlgorithmException e) {
             throw new IllegalStateException(e);
         }
