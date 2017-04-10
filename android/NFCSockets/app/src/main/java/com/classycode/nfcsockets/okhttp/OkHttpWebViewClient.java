@@ -1,4 +1,4 @@
-package com.classycode.nfcsockets.http;
+package com.classycode.nfcsockets.okhttp;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -76,6 +76,8 @@ public class OkHttpWebViewClient extends WebViewClient {
             final SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, new TrustManager[]{trustManager}, null);
             client = new OkHttpClient.Builder().socketFactory(socketFactory)
+                    // override DNS
+                    .dns(new OkDns())
                     // disable connection pooling
                     .connectionPool(noPool)
                     // disable certificate and hostname verification

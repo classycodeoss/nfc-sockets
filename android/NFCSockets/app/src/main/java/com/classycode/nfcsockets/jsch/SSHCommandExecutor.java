@@ -1,4 +1,4 @@
-package com.classycode.nfcsockets.ssh;
+package com.classycode.nfcsockets.jsch;
 
 import android.util.Log;
 

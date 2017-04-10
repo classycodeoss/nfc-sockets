@@ -13,7 +13,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
-import com.classycode.nfcsockets.http.OkHttpWebViewClient;
+import com.classycode.nfcsockets.okhttp.OkHttpWebViewClient;
 import com.classycode.nfcsockets.sockets.NFCSocketFactory;
 
 import java.net.MalformedURLException;

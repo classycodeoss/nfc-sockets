@@ -20,8 +20,8 @@
     <string name="ssh_port_hint">Port</string>
     <string name="ssh_command_hint">Command (e.g. /usr/bin/uptime)</string>
 
-    <string name="https_default_url">https://78.46.89.120/nfc/page.html</string>
-    <string name="https_url_hint">https://192.168.x.y/path/to/page.html</string>
+    <string name="https_default_url">https://news.ycombinator.com/news</string>
+    <string name="https_url_hint">https://news.ycombinator.com/news</string>
 
     <string name="ssh_default_user">pi</string>
     <string name="ssh_default_password">raspberry</string>

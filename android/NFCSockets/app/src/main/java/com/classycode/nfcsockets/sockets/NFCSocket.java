@@ -336,10 +336,7 @@ public class NFCSocket extends Socket {
 
     @Override
     public synchronized void setSoTimeout(int timeout) throws SocketException {
-        Log.i(TAG, "setSoTimeout: " + timeout);
-        if (timeout != 0) {
-            throw new IllegalStateException("Timeouts are not implemented");
-        }
+        Log.e(TAG, "Timeouts are not implemented, ignoring setSoTimeout: " + timeout);
     }
 
     @Override

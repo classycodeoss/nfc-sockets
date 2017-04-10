@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.classycode.nfcsockets.sockets.NFCSocketFactory;
-import com.classycode.nfcsockets.ssh.SSHCommandExecutor;
+import com.classycode.nfcsockets.jsch.SSHCommandExecutor;
 import com.jcraft.jsch.JSchException;
 
 import java.io.IOException;
