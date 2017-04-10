@@ -55,8 +55,12 @@ public class NFCSocket extends Socket {
     private NFCSocketInputStream in;
     private NFCSocketOutputStream out;
 
-    public NFCSocket() throws IOException {
-        init(null, 0, false);
+    public NFCSocket() {
+        try {
+            init(null, 0, false);
+        } catch (IOException e) {
+            throw new IllegalStateException("Creation of unconnected socket threw exception", e);
+        }
     }
 
     public NFCSocket(String host, int port) throws IOException {
