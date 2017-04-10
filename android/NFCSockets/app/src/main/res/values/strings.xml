@@ -11,8 +11,12 @@
     <string name="tunnel_status_link_established">NFC link established</string>
     <string name="tunnel_status_link_deactivated">NFC link deactivated</string>
 
+    <string name="tab_simpleio">Simple I/O</string>
     <string name="tab_https">HTTPS</string>
     <string name="tab_ssh">SSH</string>
+
+    <string name="sio_ip_address_hint">192.168.1.2</string>
+    <string name="sio_port_hint">Port</string>
 
     <string name="ssh_username_hint">Username</string>
     <string name="ssh_password_hint">Password</string>

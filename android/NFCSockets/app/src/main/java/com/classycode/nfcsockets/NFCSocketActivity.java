@@ -27,6 +27,7 @@ public class NFCSocketActivity extends AppCompatActivity {
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
 
         final TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText(R.string.tab_simpleio));
         tabs.addTab(tabs.newTab().setText(R.string.tab_https));
         tabs.addTab(tabs.newTab().setText(R.string.tab_ssh));
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -34,8 +35,10 @@ public class NFCSocketActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WebFragment()).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SimpleIOFragment()).commit();
                 } else if (tab.getPosition() == 1) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WebFragment()).commit();
+                } else if (tab.getPosition() == 2) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SSHFragment()).commit();
                 }
             }
@@ -49,7 +52,7 @@ public class NFCSocketActivity extends AppCompatActivity {
             }
         });
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new WebFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SimpleIOFragment()).commit();
     }
 
     @Override
