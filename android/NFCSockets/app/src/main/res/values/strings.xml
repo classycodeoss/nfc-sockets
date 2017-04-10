@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">NFC Sockets</string>
+
+    <string name="error_nfc_disabled_title">NFC Disabled</string>
+    <string name="error_nfc_disabled_message">Go to System Settings to enable NFC to use this app.</string>
+
+    <string name="apdu_service_name">NFC Socket Service</string>
+    <string name="aid_description">NFC Socket</string>
+
+    <string name="tunnel_status_ready">Ready</string>
+    <string name="tunnel_status_link_established">NFC link established</string>
+    <string name="tunnel_status_link_deactivated">NFC link deactivated</string>
+
+    <string name="tab_https">HTTPS</string>
+    <string name="tab_ssh">SSH</string>
+
+    <string name="ssh_username_hint">Username</string>
+    <string name="ssh_password_hint">Password</string>
+    <string name="ssh_ip_address_hint">192.168.12.34</string>
+    <string name="ssh_port_hint">Port</string>
+    <string name="ssh_command_hint">Command (e.g. /usr/bin/uptime)</string>
+
+    <string name="https_default_url">https://78.46.89.120/nfc/page.html</string>
+    <string name="https_url_hint">https://192.168.x.y/path/to/page.html</string>
+
+    <string name="ssh_default_user">pi</string>
+    <string name="ssh_default_password">raspberry</string>
+    <string name="ssh_default_port">22</string>
+    <string name="ssh_default_command">/usr/bin/uptime</string>
+
+    <string name="error_malformed_url_title">Malformed URL</string>
+    <string name="error_malformed_url_message">The supplied URL is invalid. Check your input.</string>
+</resources>
